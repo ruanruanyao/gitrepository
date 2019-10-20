@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BookDao">
+	<select id="queryAllBooks" resultType="Book">
+		select
+		id,book_name,author,price,dd_price,company,publish_time,src,sale_count
+		from d_book
+	</select>
+	<select id="queryByLike" resultType="Book">
+		select
+		id,book_name,author,price,dd_price,company,publish_time,src,sale_count
+		from d_book
+		<where>
+			<if test="key=='name'">book_name like '%'||#{content}||'%'</if>
+			<if test="key=='author'">author like '%'||#{content}||'%'</if>
+			<if test="key=='press'">company like '%'||#{content}||'%'</if>
+		</where>
+	</select>
+	<insert id="insertBook" parameterType="Book">
+		insert into d_book
+		values(#{id},#{book_name},#{author},#{price},
+		#{dd_price},#{company},#{publish_time},#{public_count},
+		#{isbn},#{print_time},#{print_count},0,#{cate_id},#{e_recommend},#{src}
+		)
+	</insert>
+
+	<!-- 前台系统 -->
+	<select id="queryRecommend" resultType="Book">
+		select t.*
+		from (select
+		id,book_name,author,price,dd_price,company,publish_time,src,sale_count,e_recommend
+		from d_book order by e_recommend) t
+		where ROWNUM &lt; 3
+	</select>
+
+	<select id="queryHotAndNew" resultType="Book">
+		select t.*
+		from (SELECT *
+		from d_book where publish_time BETWEEN ADD_MONTHS(SYSDATE, -1) and
+		SYSDATE ORDER BY sale_count DESC) t
+		where rownum &lt; 9
+	</select>
+	<select id="queryBooksByOne" resultType="Book">
+		select t.*
+		from (select ROWNUM rn,
+		b.id,b.book_name,b.author,b.company,b.publish_time,b.price,b.dd_price,b.src
+		from d_book b left join d_category c
+		on b.cate_id = c.id
+		where
+		c.parent_id = #{fid}) t
+		where rn between #{start} and #{end}
+	</select>
+	<select id="queryBooksByTwo" resultType="Book" parameterType="String">
+		select id,book_name,author,company,publish_time,price,dd_price,src
+		from d_book
+		where cate_id = #{cid}
+	</select>
+	<select id="queryCountByOne" resultType="Integer" parameterType="String">
+		select count(*)
+		from d_book b left join d_category c
+		on b.cate_id = c.id
+		where
+		c.parent_id = #{fid}
+	</select>
+	<select id="queryCountByTwo" resultType="Integer" parameterType="String">
+		select count(*)
+		from d_book
+		where cate_id = #{cid}
+	</select>
+	
+	<select id="queryBookById" resultType="Book" parameterType="String">
+		select *
+		from d_book where id = #{id}
+	</select>
+</mapper>

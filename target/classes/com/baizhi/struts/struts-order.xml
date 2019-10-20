@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<package name="order" extends="struts-default" namespace="/order">
+		<action name="*" class="com.baizhi.action.OrderAction" method="{1}">
+			<result name="toOk">/front/order/order_ok.jsp</result>
+		</action>
+	</package>
+</struts>

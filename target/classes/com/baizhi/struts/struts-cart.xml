@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<package name="cart" extends="struts-default" namespace="/cart">
+		<action name="*" class="com.baizhi.action.CartAction" method="{1}">
+			<result name="toCart">/front/cart/cart_list.jsp</result>
+		</action>
+	</package>
+</struts>

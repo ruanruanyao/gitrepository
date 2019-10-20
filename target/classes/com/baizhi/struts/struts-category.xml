@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<package name="Interceptor" extends="struts-default">
+		<interceptors>
+			<interceptor name="MyInterceptor" class="com.baizhi.interceptor.MyInterceptor"></interceptor>
+			<interceptor-stack name="MyStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="MyInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+	</package>
+	<package name="category" extends="struts-default" namespace="/category">
+		<action name="*" class="com.baizhi.action.CategoryAction" method="{1}">
+			<result name="toShowAll">/back/category/show.jsp</result>
+			<result name="toLogin" type="redirect">/back/login.jsp</result>
+			<result name="toAddTwo">/back/category/add-second.jsp</result>
+			<result name="toShowTwoPage">/front/main/book_list.jsp</result>
+		</action>
+	</package>
+</struts>

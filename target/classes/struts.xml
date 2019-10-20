@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<include file="com/baizhi/struts/struts-admin.xml"></include>
+	<include file="com/baizhi/struts/struts-category.xml"></include>
+	<include file="com/baizhi/struts/struts-code.xml"></include>
+	<include file="com/baizhi/struts/struts-book.xml"></include>
+	<include file="com/baizhi/struts/struts-cart.xml"></include>
+	<include file="com/baizhi/struts/struts-user.xml"></include>
+	<include file="com/baizhi/struts/struts-order.xml"></include>
+	<package name="upload" extends="struts-default" namespace="/upload">
+		<action name="upload" class="com.baizhi.action.UploadAction" method="upload">
+			<result name="OK">/index.jsp</result>
+		</action>
+	</package>
+</struts>

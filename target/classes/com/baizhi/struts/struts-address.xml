@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<package name="address" extends="struts-default" namespace="/address">
+		<action name="*" class="com.baizhi.action.AddressAction" method="{1}">
+			<result name="toLogin" type="redirect">/front/user/login_form.jsp</result>
+			<result name="toAddress" type="redirect">/front/order/address_form.jsp</result>
+			<result name="toAddr">/front/order/address_form.jsp</result>
+		</action>
+	</package>
+</struts>

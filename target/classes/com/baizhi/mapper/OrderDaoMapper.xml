@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.OrderDao">
+	<insert id="insertOrder" parameterType="Order">
+		insert into d_order values(#{id},#{order_number},#{create_time},#{total_price},#{addr_id},#{user_id})
+	</insert>
+	<select id="queryOrders" resultType="OrderVo">
+		select o.id id,o.order_number order_number,o.total_price price,a.name name,a.detail detail,o.create_time create_time
+		from d_order o left join d_address a
+		on o.addr_id = a.id
+	</select>
+</mapper>

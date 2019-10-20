@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<package name="book" extends="struts-default" namespace="/book">
+		<action name="*" class="com.baizhi.action.BookAction" method="{1}">
+			<result name="toShowAll">/back/book/show.jsp</result>
+			<result name="toAddBook">/back/book/add.jsp</result>
+		</action>
+	</package>
+</struts>

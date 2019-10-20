@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.CategoryDao">
+	<resultMap type="Category" id="cate">
+		<id column="fid" property="id"/>
+		<result column="fname" property="cate_name"/>
+		<result column="flevels" property="levels"/>
+		<collection property="categorys" ofType="Category">
+			<id column="cid" property="id"/>
+			<result column="cname" property="cate_name"/>
+			<result column="clevels" property="levels"/>
+		</collection>
+	</resultMap>
+	<select id="queryAllCategorys" resultMap="cate">
+		select f.id fid,f.cate_name fname,f.levels flevels,
+		c.id cid,c.cate_name cname,c.levels clevels
+		from d_category f left join d_category c
+		on f.id = c.parent_id
+		where f.levels = '1'
+	</select>
+	<insert id="insertOneCategory" parameterType="Category">
+		insert into d_category values(#{id},#{cate_name},0,'0','1')
+	</insert>
+	<insert id="insertTwoCategory" parameterType="Category">
+		insert into d_category values(#{id},#{cate_name},0,#{parent_id},'2')
+	</insert>
+	<select id="queryTwoCategorys" resultType="Category">
+		select id,cate_name
+		from d_category
+		where levels = '2'
+	</select>
+	<select id="queryTwoByOne" resultMap="cate" parameterType="String">
+		select f.id fid,f.cate_name fname,c.id cid,c.cate_name cname
+		from d_category f left join d_category c
+		on f.id = c.parent_id
+		where f.id = #{fid}
+	</select>
+</mapper>

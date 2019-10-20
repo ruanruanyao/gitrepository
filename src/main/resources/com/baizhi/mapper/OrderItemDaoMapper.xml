@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.OrderItemDao">
+	<insert id="insertItem" parameterType="OrderItem">
+		insert into d_item
+		values(#{id},#{price},#{count},#{amount},#{book_id},#{order_id})
+	</insert>
+	<select id="queryItemsById" resultType="OrderItemVo"
+		parameterType="String">
+		SELECT o.order_number order_number,o.total_price allprice,b.book_name book_name,b.src src,b.price price,b.dd_price dd_price,i.count count
+		from D_ITEM i LEFT JOIN D_BOOK b
+		on i.BOOK_ID = b.id
+		LEFT JOIN D_ORDER o
+		on i.order_id = o.id
+		where o.id = #{id}
+	</select>
+</mapper>
